@@ -31,7 +31,7 @@ namespace PersonalFinance.Controllers
 
             if (PasswordUtils.VerifyPasswordHash(user, request.Password, user.PasswordHash, user.PasswordSalt))
             {
-                return Ok(new { userId = user.Id, token = PasswordUtils.CreateToken(user), onboarding = user.Onboarding });
+                return Ok(new { userId = user.Id, token = PasswordUtils.CreateToken(user), onboarding = user.Onboarding, username = user.Username, email = user.Email });
             }
 
             return Unauthorized("Erro ao realizar login, verifique seu nome de usuário e senha!");
