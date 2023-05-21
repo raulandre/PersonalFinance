@@ -46,7 +46,9 @@ namespace PersonalFinance.Controllers
             if (_dataContext.Users.Any(u => u.Username.Equals(user.Username) || u.Email.Equals(user.Email)))
                 return BadRequest("Nome de usuário e/ou email em uso.");
 
-            var userCreated = await _dataContext.Users.AddAsync(user);
+            user.Balance = new Balance(0);
+
+            await _dataContext.Users.AddAsync(user);
             await _dataContext.SaveChangesAsync();
 
             return Ok("Usuário registrado com sucesso! Faça login para continuar");

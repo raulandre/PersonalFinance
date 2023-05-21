@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PersonalFinance.Models;
 
@@ -10,7 +11,11 @@ public class User
     public string Email { get; set; }
     public byte[] PasswordHash { get; set; }
     public byte[] PasswordSalt { get; set; }
-    public byte? Onboarding { get; set; } 
+    public byte? Onboarding { get; set; }
+
+    [ForeignKey("BalanceId")]
+    public Guid BalanceId { get; set; }
+    public Balance Balance { get; set; }
 
     public User()
     { }
