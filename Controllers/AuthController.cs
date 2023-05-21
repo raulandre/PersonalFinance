@@ -11,7 +11,7 @@ namespace PersonalFinance.Controllers
 {
     [ApiController]
     [AllowAnonymous]
-    [Route("auth")]
+    [Route("[controller]")]
     public class AuthController : ControllerBase
     {
         private readonly DataContext _dataContext;
