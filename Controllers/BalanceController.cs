@@ -10,7 +10,7 @@ using PersonalFinance.Utils;
 namespace PersonalFinance.Controllers
 {
     [ApiController]
-    [AllowAnonymous]
+    [Authorize]
     [Route("[controller]")]
     public class BalanceController : ControllerBase
     {
