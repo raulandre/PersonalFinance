@@ -18,6 +18,10 @@ namespace PersonalFinance.Data
             modelBuilder.Entity<Balance>()
                 .Property(u => u.Id)
                 .HasDefaultValueSql("gen_random_uuid()");
+
+            modelBuilder.Entity<Expense>()
+                .Property(u => u.Id)
+                .HasDefaultValueSql("gen_random_uuid()");
         }
 
         public DbSet<User> Users { get; set; }

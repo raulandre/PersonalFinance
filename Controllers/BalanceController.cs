@@ -23,12 +23,12 @@ namespace PersonalFinance.Controllers
         [HttpGet]
         public async Task<IActionResult> GetBalance()
         {
-            var user = await _dataContext.Users.Include(u => u.Balance).FirstOrDefaultAsync(u => u.Id.Equals(this.LoggedUserId()));
+            var user = await _dataContext.Users.Include(u => u.Balance).ThenInclude(b => b.Expenses).FirstOrDefaultAsync(u => u.Id.Equals(this.LoggedUserId()));
             if (user is null)
                 return NotFound("Usuário não encontrado.");
 
             var balance = user.Balance;
-            return Ok(new { balanceId = balance.Id, userId = user.Id, salary = balance.Salary });
+            return Ok(new { balanceId = balance.Id, userId = user.Id, salary = balance.Salary, expenses = balance.Expenses });
         }
 
         [HttpPut]
