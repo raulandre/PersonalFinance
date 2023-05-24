@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PersonalFinance.Data;
-using PersonalFinance.Models;
+using PersonalFinance.Extensions;
 using PersonalFinance.Models.ViewModels;
-using PersonalFinance.Utils;
 
 namespace PersonalFinance.Controllers
 {
@@ -21,10 +20,10 @@ namespace PersonalFinance.Controllers
             _dataContext = dataContext;
         }
 
-        [HttpGet("{userId}")]
-        public async Task<IActionResult> GetBalance(Guid userId)
+        [HttpGet]
+        public async Task<IActionResult> GetBalance()
         {
-            var user = await _dataContext.Users.Include(u => u.Balance).FirstOrDefaultAsync(u => u.Id.Equals(userId));
+            var user = await _dataContext.Users.Include(u => u.Balance).FirstOrDefaultAsync(u => u.Id.Equals(this.LoggedUserId()));
             if (user is null)
                 return NotFound("Usuário não encontrado.");
 
@@ -32,10 +31,10 @@ namespace PersonalFinance.Controllers
             return Ok(new { balanceId = balance.Id, userId = user.Id, salary = balance.Salary });
         }
 
-        [HttpPut("{userId}")]
-        public async Task<IActionResult> PostBalance(Guid userId, [FromBody] BalanceViewModel balanceViewModel)
+        [HttpPut]
+        public async Task<IActionResult> PostBalance([FromBody] BalanceViewModel balanceViewModel)
         {
-            var user = await _dataContext.Users.Include(u => u.Balance).FirstOrDefaultAsync(u => u.Id.Equals(userId));
+            var user = await _dataContext.Users.Include(u => u.Balance).FirstOrDefaultAsync(u => u.Id.Equals(this.LoggedUserId()));
             if(user is null)
                 return NotFound("Usuário não encontrado.");
 
