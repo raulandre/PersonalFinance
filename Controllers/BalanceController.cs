@@ -30,7 +30,7 @@ namespace PersonalFinance.Controllers
                 return NotFound("Usuário não encontrado.");
 
             var balance = user.Balance;
-            return Ok(new { balanceId = balance.Id, userId = user.Id, salary = balance.Salary, expenses = balance.Expenses });
+            return Ok(new { balanceId = balance.Id, userId = user.Id, salary = balance.Salary, expenses = balance.Expenses.Select(e => new ExpenseViewModel(e)) }); ;
         }
 
         [HttpPut]

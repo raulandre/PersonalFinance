@@ -1,4 +1,5 @@
-﻿using PersonalFinance.Enums;
+﻿using Microsoft.Extensions.Hosting;
+using PersonalFinance.Enums;
 
 namespace PersonalFinance.Models.ViewModels
 {
@@ -16,6 +17,13 @@ namespace PersonalFinance.Models.ViewModels
             Type = type;
             Description = description;
             Cost = cost;
+        }
+
+        public ExpenseViewModel(Expense expense)
+        {
+            Type = expense.ExpenseType;
+            Description = expense.Description;
+            Cost = expense.Cost;
         }
     }
 }
