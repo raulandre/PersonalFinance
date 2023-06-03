@@ -13,5 +13,18 @@ namespace PersonalFinance.Models
         [ForeignKey("BalanceId")]
         public Guid BalanceId { get; set; }
         public Balance Balance { get; set; }
+
+        public Expense()
+        {
+            
+        }
+
+        public Expense(EnumExpenseType type, string description, decimal cost, Guid balanceId)
+        {
+            ExpenseType = type;
+            Description = description;
+            Cost = cost;
+            BalanceId = balanceId;
+        }
     }
 }
