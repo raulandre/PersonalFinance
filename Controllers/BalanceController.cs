@@ -30,7 +30,23 @@ namespace PersonalFinance.Controllers
                 return NotFound("Usuário não encontrado.");
 
             var balance = user.Balance;
-            return Ok(new { balanceId = balance.Id, userId = user.Id, salary = balance.Salary, expensesToal = balance.Expenses.Sum(e => e.Cost), expenses = balance.Expenses.Select(e => new ExpenseViewModel(e)) }); ;
+            return Ok(new {
+                balanceId = balance.Id,
+                userId = user.Id,
+                salary = balance.Salary,
+                expensesToal = balance.Expenses.Sum(e => e.Cost),
+                expensesMonthly = balance.Expenses.Select(e => new
+                {
+                    type = e.ExpenseType,
+                    description = e.Description,
+                    percentage = Math.Round(((decimal)e.Cost / (decimal)balance.Expenses.Sum(e => e.Cost)) * 100M, 2)
+                }).OrderByDescending(e => e.percentage).ToList(),
+                expensesByType = balance.Expenses.GroupBy(e => e.ExpenseType).Select(e => new
+                {
+                    type = e.Key,
+                    percentage = Math.Round(((decimal)e.Count() / (decimal)balance.Expenses.Count) * 100M, 2)
+                }).OrderByDescending(e => e.percentage).ToList()
+            });
         }
 
         [HttpPut]
