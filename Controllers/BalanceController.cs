@@ -22,6 +22,13 @@ namespace PersonalFinance.Controllers
             _dataContext = dataContext;
         }
 
+        // GET Balance
+        /// <summary>
+        /// Endpoint para buscar as informações do dashboard
+        /// </summary>
+        /// <returns>Todas as informações para montar o dashboard</returns>
+        /// <response code="200">Dados para o dashboard</response>
+        /// <response code="404">Se o usuário logado não tiver balança em aberto.</response>    
         [HttpGet]
         public async Task<IActionResult> GetBalance()
         {
@@ -49,6 +56,13 @@ namespace PersonalFinance.Controllers
             });
         }
 
+        // PUT Balance
+        /// <summary>
+        /// Endpoint utilizado para atualizar o sálario do usuário
+        /// </summary>
+        /// <returns>Mensagem de sucesso/erro</returns>
+        /// <response code="200">Mensagem de sucesso</response>
+        /// <response code="404">Se o usuário logado não tiver balança em aberto.</response>  
         [HttpPut]
         public async Task<IActionResult> PostBalance([FromBody] BalanceViewModel balanceViewModel)
         {

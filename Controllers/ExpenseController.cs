@@ -24,6 +24,12 @@ namespace PersonalFinance.Controllers
             _dataContext = dataContext;
         }
 
+        // GET Expenses/expense-types
+        /// <summary>
+        /// Busca o enum utilizado internamente para representar os tipos de gastos.
+        /// </summary>
+        /// <returns>Enum com os tipos de gastos</returns>
+        /// <response code="200">Enum com os tipos de gastos</response>
         [HttpGet("expense-types")]
         public IActionResult GetExpenseTypes()
         {
@@ -31,6 +37,13 @@ namespace PersonalFinance.Controllers
             return Ok(JsonSerializer.Serialize(types));
         }
 
+        // GET Expenses/expenses
+        /// <summary>
+        /// Busca todos os gastos cadastrados do usuário logado
+        /// </summary>
+        /// <returns>Lista de todos os gastos cadastrados para o usuário</returns>
+        /// <response code="200">Lista com todos os gastos</response>
+        /// <response code="404">Mensagem de que nenhum gasto foi encontrado</response>
         [HttpGet("expenses")]
         public async Task<IActionResult> GetExpensesByUser()
         {
@@ -49,6 +62,13 @@ namespace PersonalFinance.Controllers
             return NotFound("Nenhum gasto cadastrado para o usuário.");
         }
 
+        // PUT Expenses/expenses
+        /// <summary>
+        /// Atualiza os gastos do usuário logado. O conteúdo do body dessa requisição irá substituir TODOS os gastos ja cadastrados.
+        /// </summary>
+        /// <returns>Mensagem de erro/sucesso</returns>
+        /// <response code="200">Mensagem de sucesso</response>
+        /// <response code="404">Mensagem de erro</response>
         [HttpPut("expenses")]
         public async Task<IActionResult> UpdateExpenses([FromBody] List<ExpenseViewModel> expenses)
         {

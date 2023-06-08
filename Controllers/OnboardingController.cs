@@ -18,6 +18,13 @@ namespace PersonalFinance.Controllers
             _dataContext = dataContext;
         }
 
+        // GET Onboarding/onboarding-state
+        /// <summary>
+        /// Busca o estado em que o usuário se encontra no processo de onboarding.
+        /// </summary>
+        /// <returns>Numero representando etapa do onboarding que o usuário parou.</returns>
+        /// <response code="200">Etapa do onboarding</response>
+        /// <response code="404">Mensagem de erro</response>
         [HttpGet("onboarding-state")]
         public async Task<IActionResult> GetOnboardingState()
         {
@@ -33,6 +40,13 @@ namespace PersonalFinance.Controllers
             });
         }
 
+        // PUT Onboarding/onboarding-state/{state}
+        /// <summary>
+        /// Atualiza a etapa do onboarding do usuário. Não deve ser utilizado para finalizar o onboarding!
+        /// </summary>
+        /// <returns>Mensagem de erro/sucesso.</returns>
+        /// <response code="200">Mensagem de sucesso</response>
+        /// <response code="404">Mensagem de erro</response>
         [HttpPut("update-onboarding/{state}")]
         public async Task<IActionResult> UpdateOnboardingState(byte state)
         {
@@ -49,6 +63,13 @@ namespace PersonalFinance.Controllers
             return Ok("Status de onboarding atualizado!");
         }
 
+        // PUT Onboarding/finish-onboarding
+        /// <summary>
+        /// Finaliza o onboarding do usuário, setando onboarding = null
+        /// </summary>
+        /// <returns>Mensagem de erro/sucesso.</returns>
+        /// <response code="200">Mensagem de sucesso</response>
+        /// <response code="404">Mensagem de erro</response>
         [HttpPut("finish-onboarding")]
         public async Task<IActionResult> FinishOnboardinig()
         {

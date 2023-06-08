@@ -21,6 +21,14 @@ namespace PersonalFinance.Controllers
             _dataContext = dataContext;
         }
 
+        // POST Auth/login
+        /// <summary>
+        /// Endpoint para realizar login na API
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>Informações sobre o usuário logado, incluindo o token e o status de onboarding.</returns>
+        /// <response code="200">Retorna informações sobre o usuário</response>
+        /// <response code="401">Se o usuário não for encontrado ou nome de usuário/senha estiverem incorretos.</response>    
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginViewModel request)
         {
@@ -37,6 +45,14 @@ namespace PersonalFinance.Controllers
             return Unauthorized("Erro ao realizar login, verifique seu nome de usuário e senha!");
         }
 
+        // POST Auth/register
+        /// <summary>
+        /// Endpoint para realizar cadastro de usuário na API
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>Mensagem indicando se registro ocorreu com sucesso ou não.</returns>
+        /// <response code="200">Mensagem de sucesso</response>
+        /// <response code="400">Se o nome de usuário/senha estiverem em uso.</response>    
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterViewModel request)
         {
