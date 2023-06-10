@@ -32,7 +32,7 @@ namespace PersonalFinance.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginViewModel request)
         {
-            var user = await _dataContext.Users.Where(u => u.Username.Equals(request.Username)).FirstOrDefaultAsync();
+            var user = await _dataContext.Users.Where(u => u.Email.ToLower().Equals(request.Email.ToLower())).FirstOrDefaultAsync();
 
             if (user is null)
                 return Unauthorized("Usuário não encontrado!");
