@@ -38,10 +38,9 @@ namespace PersonalFinance.Controllers
 
             var balance = user.Balance;
             return Ok(new {
-                balanceId = balance.Id,
-                userId = user.Id,
                 salary = balance.Salary,
-                expensesToal = balance.Expenses.Sum(e => e.Cost),
+                expensesTotal = balance.Expenses.Sum(e => e.Cost),
+                remaining = Math.Max(0, balance.Salary - balance.Expenses.Sum(e => e.Cost)),
                 expensesMonthly = balance.Expenses.Select(e => new
                 {
                     type = e.ExpenseType,

@@ -2,18 +2,18 @@
 {
     public class LoginViewModel
     {
-        public string Username { get; set; }
+        public string Email { get; set; }
         public string Password { get; set; }
 
         public LoginViewModel()
         {
-            Username = string.Empty;
+            Email = string.Empty;
             Password = string.Empty;
         }
 
-        public LoginViewModel(string username, string password)
+        public LoginViewModel(string email, string password)
         {
-            Username = username;
+            Email = email;
             Password = password;
         }
     }
