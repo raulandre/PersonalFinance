@@ -59,8 +59,8 @@ namespace PersonalFinance.Controllers
             PasswordUtils.CreatePasswordHash(request.Password, out byte[] hash, out byte[] salt);
             var user = new User(request.Username, request.Email.ToLower(), hash, salt);
 
-            if (_dataContext.Users.Any(u => u.Username.Equals(user.Username) || u.Email.Equals(user.Email)))
-                return BadRequest("Nome de usuário e/ou email em uso.");
+            if (_dataContext.Users.Any(u => u.Email.Equals(user.Email)))
+                return BadRequest("Email já cadastrado!");
 
             user.Balance = new Balance(0);
 
