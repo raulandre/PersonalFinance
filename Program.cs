@@ -12,6 +12,10 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+Console.WriteLine("========================================================");
+Console.WriteLine(new DatabaseUtils(builder.Configuration).GetConnectionString());
+Console.WriteLine("========================================================");
+
 // Add services to the container.
 builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(
     new DatabaseUtils(builder.Configuration).GetConnectionString())
@@ -76,8 +80,9 @@ using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<DataContext>();
     if (context.Database.GetPendingMigrations().Any())
-        context.Database.Migrate();
+       context.Database.Migrate();
 }
+
 
 app.UseSwagger();
 app.UseSwaggerUI();
