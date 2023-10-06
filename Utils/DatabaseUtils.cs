@@ -22,7 +22,7 @@ public class DatabaseUtils
 
         if (env == "Production")
         {
-            var url = new Uri("postgres://personal_finance_puc:Denvd4dYzi76fHO@personal-finance-puc-db.flycast:5432/personal_finance_puc?sslmode=disable");
+            var url = new Uri(Environment.GetEnvironmentVariable("DATABASE_URL"));
             var host = url.Host;
             var database = url.LocalPath.TrimStart('/');
             var username = url.UserInfo.Split(':')[0];
